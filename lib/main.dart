@@ -13,7 +13,17 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: .fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.dark(),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom( // Use styleFrom for easy configuration
+            foregroundColor: Colors.white, // Text and icon color
+            backgroundColor: const Color.fromARGB(255, 3, 45, 78),  // Button background color
+            textStyle: const TextStyle(fontSize: 16), // Text style
+            shape: RoundedRectangleBorder( // Button shape
+              borderRadius: BorderRadius.circular(16),
+            ),
+          ),
+        ),
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
@@ -31,6 +41,9 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   List<String> operation = [];
   final calcText = TextEditingController();
+  double clearButtonWidth = 160;
+  double normalButtonWidth = 80;
+  double buttonHeight = 50;
 
   void createOperation(String input){
     if (checkSign(input)) return;
@@ -41,9 +54,8 @@ class _MyHomePageState extends State<MyHomePage> {
   bool checkSign(String sign){
     if (operation.isEmpty) return false;
     String lastElement = operation[operation.length - 1];
-    print(int.tryParse(lastElement));
     if(int.tryParse(lastElement) == null && int.tryParse(sign) == null){
-      if (lastElement == "%" && sign != "%"){
+      if (lastElement == "%" && sign != "%" && sign != "."){
         return false;
       }
 
@@ -95,9 +107,10 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             ConstrainedBox(
               constraints: BoxConstraints(
-                maxWidth: 430,
+                maxWidth: 400,
               ),
               child: Column(
+                spacing: 5.0,
                 children: [
                   TextField(
                     readOnly: true,
@@ -108,117 +121,184 @@ class _MyHomePageState extends State<MyHomePage> {
                     )
                   ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    spacing: 5.0,
                     children: [
                       ElevatedButton(
                         onPressed: () {
                           clear();
                         }, 
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: Size(clearButtonWidth, buttonHeight)
+                        ),
                         child: Text("C")),
                         ElevatedButton(
-                        onPressed: () {
-                          createOperation("%");
-                        }, 
+                          onPressed: () {
+                            createOperation("%");
+                          }, 
+                          style: ElevatedButton.styleFrom(
+                            minimumSize: Size(normalButtonWidth, buttonHeight)
+                          ),
                         child: Text("%")),
                         ElevatedButton(
-                        onPressed: () {
-                          createOperation(" / ");
-                        }, 
-                        child: Text(" / ")),
+                          onPressed: () {
+                            createOperation(" / ");
+                          }, 
+                          style: ElevatedButton.styleFrom(
+                            minimumSize: Size(normalButtonWidth, buttonHeight)
+                          ),
+                          child: Text(" / ")),
                     ],
                   ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    spacing: 5.0,
                     children: [
                       ElevatedButton(
                         onPressed: () {
                           createOperation("7");
                         }, 
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: Size(normalButtonWidth, buttonHeight)
+                        ),
                         child: Text("7")),
                       ElevatedButton(
                         onPressed: () {
                           createOperation("8");
                         }, 
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: Size(normalButtonWidth, buttonHeight)
+                        ),
                         child: Text("8")),
                         ElevatedButton(
                         onPressed: () {
                           createOperation("9");
                         }, 
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: Size(normalButtonWidth, buttonHeight)
+                        ),
                         child: Text("9")),
                         ElevatedButton(
                         onPressed: () {
                           createOperation(" * ");
                         }, 
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: Size(normalButtonWidth, buttonHeight)
+                        ),
                         child: Text("*")),
                     ],
                   ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    spacing: 5.0,
                     children: [
                       ElevatedButton(
                         onPressed: () {
                           createOperation("4");
                         }, 
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: Size(normalButtonWidth, buttonHeight)
+                        ),
                         child: Text("4")),
                       ElevatedButton(
                         onPressed: () {
                           createOperation("5");
                         }, 
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: Size(normalButtonWidth, buttonHeight)
+                        ),
                         child: Text("5")),
                         ElevatedButton(
                         onPressed: () {
                           createOperation("6");
                         }, 
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: Size(normalButtonWidth, buttonHeight)
+                        ),
                         child: Text("6")),
                         ElevatedButton(
                         onPressed: () {
                           createOperation(" - ");
                         }, 
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: Size(normalButtonWidth, buttonHeight)
+                        ),
                         child: Text("-")),
                     ],
                   ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    spacing: 5.0,
                     children: [
                       ElevatedButton(
                         onPressed: () {
                           createOperation("1");
                         }, 
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: Size(normalButtonWidth, buttonHeight)
+                        ),
                         child: Text("1")),
                       ElevatedButton(
                         onPressed: () {
                           createOperation("2");
                         }, 
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: Size(normalButtonWidth, buttonHeight)
+                        ),
                         child: Text("2")),
                         ElevatedButton(
                         onPressed: () {
                           createOperation("3");
                         }, 
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: Size(normalButtonWidth, buttonHeight)
+                        ),
                         child: Text("3")),
                         ElevatedButton(
                         onPressed: () {
                           createOperation(" + ");
                         }, 
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: Size(normalButtonWidth, buttonHeight)
+                        ),
                         child: Text("+")),
                     ],
                   ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    spacing: 5.0,
                     children: [
                       ElevatedButton(
                         onPressed: () {
                           plusMinus();
                         }, 
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: Size(normalButtonWidth, buttonHeight)
+                        ),
                         child: Text("+/-")),
                       ElevatedButton(
                         onPressed: () {
                           createOperation("0");
                         }, 
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: Size(normalButtonWidth, buttonHeight)
+                        ),
                         child: Text("0")),
                         ElevatedButton(
                         onPressed: () {
                           createOperation(".");
                         }, 
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: Size(normalButtonWidth, buttonHeight)
+                        ),
                         child: Text(".")),
                         ElevatedButton(
                         onPressed: () {
                           calculateOperation();
                         }, 
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: Size(normalButtonWidth, buttonHeight)
+                        ),
                         child: Text("=")),
                     ],
                   ),
